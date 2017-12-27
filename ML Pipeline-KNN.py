@@ -12,7 +12,7 @@ from sklearn.linear_model import LogisticRegression
 from scipy.spatial import distance
 
 
-def euc(a, b):
+def finddist(a, b):
     """Distance between test point and closest traing point."""
     return distance
 
@@ -35,10 +35,10 @@ class ScrappyKnn():
 
     def closest(self, row):
         """Saves label of cloest point loops over all points"""
-        best_dist = euc(row, self.x_train[0])
+        best_dist = finddist(row, self.x_train[0])
         best_index = 0
         for i in range(1, len(self.x_train)):
-            distance = euc(row, self.x_train[i])
+            distance = finddist(row, self.x_train[i])
             if distance < best_dist:
                 best_dist = distance
                 best_index = i
@@ -60,10 +60,10 @@ clftree.fit(x_train, y_train)
 treepredictions = clftree.predict(x_test)
 print(accuracy_score(treepredictions, y_test))
 
-clfknn = ScrappyKnn()
-clfknn.fit(x_train, y_train)
+knn = ScrappyKnn()
+knn.fit(x_train, y_train)
 
-knnpreditions = clfknn.predict(x_test)
+knnpreditions = knn.predict(x_test)
 print(accuracy_score(knnpreditions, y_test))
 
 clflr = LogisticRegression()
